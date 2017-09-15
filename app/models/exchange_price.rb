@@ -1,0 +1,2 @@
+class ExchangePrice < ApplicationRecord
+end
