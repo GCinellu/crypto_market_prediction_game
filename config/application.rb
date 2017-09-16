@@ -16,7 +16,7 @@ require "rails/test_unit/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module ThickFolio
+module PredictionGame
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
@@ -30,7 +30,8 @@ module ThickFolio
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
-    config.autoload_paths << Rails.root.join('app/services')
+    config.autoload_paths << Rails.root.join('app/services', 'lib')
+
     config.active_job.queue_adapter = :sidekiq
   end
 end

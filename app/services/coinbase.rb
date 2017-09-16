@@ -23,7 +23,11 @@ class Coinbase
     JSON.parse(response.body)
   end
 
+  def amount(method)
+    fetch_price(method)['data']['amount']
+  end
+
   def amount_float(method)
-    fetch_price(method)['data']['amount'].to_f
+    amount(method).to_f
   end
 end
