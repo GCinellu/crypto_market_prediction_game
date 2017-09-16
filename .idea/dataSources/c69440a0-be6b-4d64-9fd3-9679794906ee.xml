@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSource name="thick_folio_development@localhost">
+<dataSource name="prediction_game_development@localhost">
   <database-model serializer="dbm" rdbms="POSTGRES" format-version="4.4">
     <root id="1"/>
     <database id="2" parent="1" name="thick_folio_development">
@@ -28,26 +28,162 @@
     <database id="9" parent="1" name="thick_folio_test">
       <ObjectId>40992</ObjectId>
     </database>
-    <schema id="10" parent="2" name="public">
+    <database id="10" parent="1" name="prediction_game_development">
+      <ObjectId>49261</ObjectId>
+    </database>
+    <database id="11" parent="1" name="prediction_game_test">
+      <ObjectId>49404</ObjectId>
+    </database>
+    <schema id="12" parent="2" name="public">
       <ObjectId>2200</ObjectId>
-      <IntrospectionTimestamp>2017-09-01.22:54:05.651</IntrospectionTimestamp>
+      <IntrospectionTimestamp>2017-09-15.23:52:04.104</IntrospectionTimestamp>
+      <IntrospectionStateNumber>917</IntrospectionStateNumber>
       <Current>1</Current>
       <Visible>1</Visible>
     </schema>
-    <schema id="11" parent="2" name="pg_catalog">
+    <schema id="13" parent="2" name="pg_catalog">
       <ObjectId>11</ObjectId>
     </schema>
-    <schema id="12" parent="2" name="pg_toast">
+    <schema id="14" parent="2" name="pg_toast">
       <ObjectId>99</ObjectId>
     </schema>
-    <schema id="13" parent="2" name="pg_temp_1">
+    <schema id="15" parent="2" name="pg_temp_1">
       <ObjectId>11848</ObjectId>
     </schema>
-    <schema id="14" parent="2" name="pg_toast_temp_1">
+    <schema id="16" parent="2" name="pg_toast_temp_1">
       <ObjectId>11849</ObjectId>
     </schema>
-    <schema id="15" parent="2" name="information_schema">
+    <schema id="17" parent="2" name="information_schema">
       <ObjectId>12381</ObjectId>
     </schema>
+    <sequence id="18" parent="12" name="exchange_prices_id_seq">
+      <ObjectId>41009</ObjectId>
+      <StateNumber>912</StateNumber>
+      <BelongsToColumn>1</BelongsToColumn>
+    </sequence>
+    <table id="19" parent="12" name="ar_internal_metadata">
+      <ObjectId>41001</ObjectId>
+      <StateNumber>911</StateNumber>
+    </table>
+    <table id="20" parent="12" name="exchange_prices">
+      <ObjectId>41011</ObjectId>
+      <StateNumber>917</StateNumber>
+    </table>
+    <table id="21" parent="12" name="schema_migrations">
+      <ObjectId>40993</ObjectId>
+      <StateNumber>910</StateNumber>
+    </table>
+    <column id="22" parent="19" name="key">
+      <Position>1</Position>
+      <DataType>varchar|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>911</StateNumber>
+    </column>
+    <column id="23" parent="19" name="value">
+      <Position>2</Position>
+      <DataType>varchar|0</DataType>
+      <StateNumber>911</StateNumber>
+    </column>
+    <column id="24" parent="19" name="created_at">
+      <Position>3</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>911</StateNumber>
+    </column>
+    <column id="25" parent="19" name="updated_at">
+      <Position>4</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>911</StateNumber>
+    </column>
+    <index id="26" parent="19" name="ar_internal_metadata_pkey">
+      <ObjectId>41007</ObjectId>
+      <ColNames>key</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="27" parent="19" name="ar_internal_metadata_pkey">
+      <ObjectId>41008</ObjectId>
+      <ColNames>key</ColNames>
+      <UnderlyingIndexName>ar_internal_metadata_pkey</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="28" parent="20" name="id">
+      <Position>1</Position>
+      <DataType>bigint|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>912</StateNumber>
+      <SequenceName>exchange_prices_id_seq</SequenceName>
+      <DefaultExpression>nextval(&apos;exchange_prices_id_seq&apos;::regclass)</DefaultExpression>
+    </column>
+    <column id="29" parent="20" name="spot">
+      <Position>2</Position>
+      <DataType>double precision|0</DataType>
+      <StateNumber>912</StateNumber>
+    </column>
+    <column id="30" parent="20" name="sell">
+      <Position>3</Position>
+      <DataType>double precision|0</DataType>
+      <StateNumber>912</StateNumber>
+    </column>
+    <column id="31" parent="20" name="buy">
+      <Position>4</Position>
+      <DataType>double precision|0</DataType>
+      <StateNumber>912</StateNumber>
+    </column>
+    <column id="32" parent="20" name="created_at">
+      <Position>5</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>912</StateNumber>
+    </column>
+    <column id="33" parent="20" name="updated_at">
+      <Position>6</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>912</StateNumber>
+    </column>
+    <column id="34" parent="20" name="exchange">
+      <Position>7</Position>
+      <DataType>varchar|0</DataType>
+      <StateNumber>917</StateNumber>
+    </column>
+    <column id="35" parent="20" name="coin">
+      <Position>8</Position>
+      <DataType>varchar|0</DataType>
+      <StateNumber>917</StateNumber>
+    </column>
+    <column id="36" parent="20" name="currency">
+      <Position>9</Position>
+      <DataType>varchar|0</DataType>
+      <StateNumber>917</StateNumber>
+    </column>
+    <index id="37" parent="20" name="exchange_prices_pkey">
+      <ObjectId>41015</ObjectId>
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="38" parent="20" name="exchange_prices_pkey">
+      <ObjectId>41016</ObjectId>
+      <ColNames>id</ColNames>
+      <UnderlyingIndexName>exchange_prices_pkey</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="39" parent="21" name="version">
+      <Position>1</Position>
+      <DataType>varchar|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>910</StateNumber>
+    </column>
+    <index id="40" parent="21" name="schema_migrations_pkey">
+      <ObjectId>40999</ObjectId>
+      <ColNames>version</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="41" parent="21" name="schema_migrations_pkey">
+      <ObjectId>41000</ObjectId>
+      <ColNames>version</ColNames>
+      <UnderlyingIndexName>schema_migrations_pkey</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
   </database-model>
 </dataSource>
