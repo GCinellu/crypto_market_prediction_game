@@ -9,6 +9,9 @@ class User < ApplicationRecord
 
   validates_email_format_of :email, :message => 'Not a valid email'
 
+  has_many :predictions
+  has_many :predicteds
+
   def password
     @password ||= Password.new(password_digest)
   rescue
