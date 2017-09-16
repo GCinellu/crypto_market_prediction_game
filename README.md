@@ -66,6 +66,14 @@ And run the application with:
 `puma`
 
 ## Changelog
+#### 0.0.2
+Well, in the end I decided that I might not feeling like porting the whole thingy to an api in the future, so I decided to ditch Devise and organise a small authentication set myself.
+
+In this version we see an improved User model with validations and the capacity to handle tokens.
+
+I also created a method in the application controller that allows to verify if a user token is valid, Devise style.
+
+I will now start working at the real betting system.
 
 #### 0.0.1
 Configured scheduling with Sidekiq and a job to fetch Bitcoin prices from Coinbase.
