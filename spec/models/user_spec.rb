@@ -20,6 +20,14 @@ RSpec.describe User, type: :model do
 
         expect(user.valid?).to eq false
       end
+
+      it "should be unique" do
+        user = FactoryGirl.create(:user_valid)
+        expect(user.valid?).to eq true
+
+        user_two = FactoryGirl.create(:user_valid)
+        expect(user_two.valid?).to eq false
+      end
     end
 
     context 'email' do
