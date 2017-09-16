@@ -28,10 +28,12 @@ ActiveRecord::Schema.define(version: 20170916182607) do
 
   create_table "predicteds", force: :cascade do |t|
     t.bigint "user_id"
-    t.float "amount"
-    t.datetime "expiration"
     t.string "coin"
-    t.float "coin_price_at_datetime"
+    t.string "exchange"
+    t.string "prediction_type"
+    t.float "change_in_price"
+    t.float "value_at_time"
+    t.datetime "expiration"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_predicteds_on_user_id"
@@ -39,9 +41,12 @@ ActiveRecord::Schema.define(version: 20170916182607) do
 
   create_table "predictions", force: :cascade do |t|
     t.bigint "user_id"
-    t.float "amount"
-    t.datetime "expiration"
     t.string "coin"
+    t.string "exchange"
+    t.string "prediction_type"
+    t.float "change_in_price"
+    t.float "current_value"
+    t.datetime "expiration"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_predictions_on_user_id"
