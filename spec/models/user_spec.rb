@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  before(:each) do
+    User.delete_all
+  end
+
+  after(:each) do
+    User.delete_all
+  end
+
   context 'validation'do
     context 'username' do
       it "should not be valid if username is empty" do
@@ -15,17 +23,17 @@ RSpec.describe User, type: :model do
         expect(user.valid?).to eq false
       end
 
-      it "should not be valid if username is longer than 4 characters" do
+      it "should not be valid if username is longer than 20 characters" do
         user = FactoryGirl.build(:user_valid, username: 'super mega long username that I would rather not store')
 
         expect(user.valid?).to eq false
       end
 
       it "should be unique" do
-        user = FactoryGirl.create(:user_valid)
+        user = FactoryGirl.create(:user_valid, email: 'test@unique.com')
         expect(user.valid?).to eq true
 
-        user_two = FactoryGirl.create(:user_valid)
+        user_two = FactoryGirl.build(:user_valid, email: 'different@unique.com')
         expect(user_two.valid?).to eq false
       end
     end
@@ -43,6 +51,14 @@ RSpec.describe User, type: :model do
 
         user = FactoryGirl.build(:user_valid)
         expect(user.valid?).to eq true
+      end
+
+      it "should be unique" do
+        user = FactoryGirl.create(:user_valid, username: 'unique')
+        expect(user.valid?).to eq true
+
+        user_two = FactoryGirl.build(:user_valid, username: 'different')
+        expect(user_two.valid?).to eq false
       end
     end
 
