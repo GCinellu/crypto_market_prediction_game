@@ -29,12 +29,10 @@ class AuthenticationController < ApplicationController
   end
 
   def success_response user
-    payload = { creation_date: user.created_at, id: user.id }
-
     {
       email: user.email,
       username: user.username,
-      token: JsonWebToken.encode(payload)
+      token: user.token
     }
   end
 end
