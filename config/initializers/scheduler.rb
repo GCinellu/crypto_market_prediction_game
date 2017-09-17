@@ -2,6 +2,7 @@ require 'rufus-scheduler'
 
 s = Rufus::Scheduler.singleton
 
-s.every '5m' do
-  BtcCoinbasePrices.perform_now
+s.every '30s' do
+  BtcCoinbasePrices.perform_now {}
+  ProcessPredictionsJob.perform_now {}
 end
