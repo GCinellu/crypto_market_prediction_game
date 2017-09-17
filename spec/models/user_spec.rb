@@ -71,4 +71,10 @@ RSpec.describe User, type: :model do
     end
   end
 
+  context 'token' do
+
+  end
+
+  context 'valid_token?'
+
 end

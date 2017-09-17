@@ -3,11 +3,9 @@ require 'rails_helper'
 RSpec.describe AuthenticationController, type: :controller do
   describe "POST #login" do
     before(:all) do
-      @user = FactoryGirl.create(:user)
-    end
+      User.destroy_all
 
-    after(:all) do
-      @user.delete
+      @user = FactoryGirl.create(:user_valid)
     end
 
     it "returns user's informations when credentials are correct" do
@@ -32,11 +30,9 @@ RSpec.describe AuthenticationController, type: :controller do
 
   describe "POST #signup" do
     before(:each) do
-      @user = FactoryGirl.build(:user)
-    end
+      User.destroy_all
 
-    after(:all) do
-      @user.delete
+      @user = FactoryGirl.build(:user_valid)
     end
 
     it "returns user's informations when signup is successful" do
