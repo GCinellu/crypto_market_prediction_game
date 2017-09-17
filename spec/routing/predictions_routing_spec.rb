@@ -15,14 +15,6 @@ RSpec.describe PredictionsController, type: :routing do
       expect(:post => "/predictions").to route_to("predictions#create")
     end
 
-    xit "routes to #update via PUT" do
-      expect(:put => "/predictions/1").to route_to("predictions#update", :id => "1")
-    end
-
-    xit "routes to #update via PATCH" do
-      expect(:patch => "/predictions/1").to route_to("predictions#update", :id => "1")
-    end
-
     xit "routes to #destroy" do
       expect(:delete => "/predictions/1").to route_to("predictions#destroy", :id => "1")
     end

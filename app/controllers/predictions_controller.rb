@@ -1,10 +1,15 @@
 class PredictionsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_prediction, only: [:show, :destroy]
 
   def index
-    response = {
-      predictions: @current_user.predictions
-    }
+    response = { predictions: @current_user.predictions }
+
+    render json: response
+  end
+
+  def show
+    response = { prediction: @prediction }
 
     render json: response
   end
@@ -31,7 +36,15 @@ class PredictionsController < ApplicationController
     render json: { error: error }
   end
 
+  def destroy
+    render json: { deleted_prediction: @prediction.delete }
+  end
+
   private
+
+  def set_prediction
+    @prediction = @current_user.predictions.find(params[:id])
+  end
 
   def prediction_params
     params.require(:prediction).permit(:coin, :exchange, :currency,

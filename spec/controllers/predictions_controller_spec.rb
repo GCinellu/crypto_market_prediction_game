@@ -52,6 +52,22 @@ RSpec.describe PredictionsController, type: :controller do
     end
   end
 
+  describe "GET #show" do
+    it "returns a success response" do
+      prediction = FactoryGirl.create(:prediction, user: @user)
+
+      get :show, params: { id: prediction.id }
+      expect(response).to be_success
+    end
+
+    it "returns the prediction with the given id" do
+      prediction = FactoryGirl.create(:prediction, user: @user)
+
+      get :show, params: { id: prediction.id }
+      expect(JSON.parse(response.body)['prediction']['id']).to eq prediction.id
+    end
+  end
+
   describe "POST #create" do
     context "with valid params" do
       it "creates a new Prediction" do
@@ -77,6 +93,23 @@ RSpec.describe PredictionsController, type: :controller do
         post :create, params: { prediction: invalid_attributes}
         expect(JSON.parse(response.body)['error']).to eq 'Validation failed: Coin is not included in the list, Exchange is not included in the list, Currency is not included in the list'
       end
+    end
+  end
+
+  describe "DELETE #destroy" do
+    it "destroys the requested prediction" do
+      prediction = FactoryGirl.create(:prediction, user: @user)
+
+      expect {
+        delete :destroy, params: {id: prediction.id }
+      }.to change(Prediction, :count).by(-1)
+    end
+
+    it "returns the destroyed prediction" do
+      prediction = FactoryGirl.create(:prediction, user: @user)
+
+      delete :destroy, params: {id: prediction.id }
+      expect(JSON.parse(response.body)['deleted_prediction']['id']).to eq prediction.id
     end
   end
 end
