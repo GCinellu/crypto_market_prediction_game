@@ -5,12 +5,13 @@ class CreatePredictions < ActiveRecord::Migration[5.1]
 
       t.string :coin
       t.string :exchange
+      t.string :currency
       t.string :prediction_type
 
       t.float :change_in_price
       t.float :current_value
 
-      t.datetime :expiration
+      t.datetime :expiring_at
 
       t.timestamps
     end

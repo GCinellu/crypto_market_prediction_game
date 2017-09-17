@@ -9,14 +9,14 @@ RSpec.describe Predicted, type: :model do
   end
 
   context 'validation' do
-    context 'expiring' do
+    context 'expiring_at' do
       it 'should be valid if field is present' do
-        @predicted.expiration = DateTime.now + 1
+        @predicted.expired_at = DateTime.now + 1
         expect(@predicted.valid?).to eq true
       end
 
       it 'should not be valid and throw an error if field is missing' do
-        @predicted.expiration = nil
+        @predicted.expired_at = nil
         expect(@predicted.valid?).to eq false
       end
     end
@@ -55,8 +55,28 @@ RSpec.describe Predicted, type: :model do
       end
     end
 
+    context 'currency' do
+      it 'should be valid if value is known' do
+        @predicted.currency = 'USD'
+        expect(@predicted.valid?).to eq true
+      end
+
+      it 'should not be valid and throw an error if field is missing' do
+        @predicted.currency = nil
+        expect(@predicted.valid?).to eq false
+      end
+
+      it 'should not be valid and throw an error if value is unknown' do
+        @predicted.currency = 'XYZ123'
+        expect(@predicted.valid?).to eq false
+      end
+    end
+
     context 'difference' do
-      it 'should tell how far '
+      xit 'should tell how close the user was in its prediction' do
+        difference = @predicted.difference
+        expect(@predicted.valid?).to eq false
+      end
     end
   end
 end
