@@ -1,11 +1,9 @@
 class BtcCoinbasePrices < ApplicationJob
   queue_as :coinbase
 
-  def initialize
-    @coinbase = Coinbase.new
-  end
+  def perform
+    @coinbase ||= Coinbase.new
 
-  def perform(*args)
     prices = @coinbase.prices
 
     ExchangePrice.create(
