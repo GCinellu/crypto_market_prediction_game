@@ -89,6 +89,17 @@ RSpec.describe Prediction, type: :model do
       end
     end
 
+    context 'current_value' do
+      it 'should be valid if value is present' do
+        expect(@prediction.valid?).to eq true
+      end
+
+      it 'should not be valid and throw an error if field is missing' do
+        @prediction.current_value = nil
+        expect(@prediction.valid?).to eq false
+      end
+    end
+
     context 'check_current_value' do
       it 'should return a valid token for the user, with user_id and user creation_date' do
         current_value = FactoryGirl.create(:valid_exchange_price)
