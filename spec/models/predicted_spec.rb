@@ -74,6 +74,8 @@ RSpec.describe Predicted, type: :model do
 
     context 'difference' do
       xit 'should tell how close the user was in its prediction' do
+        prediction = FactoryGirl.create(:prediction, user: @user)
+        predicted = FactoryGirl.create(:predicted, user: @user)
         difference = @predicted.difference
         expect(@predicted.valid?).to eq false
       end

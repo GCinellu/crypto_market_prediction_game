@@ -7,9 +7,10 @@ FactoryGirl.define do
     currency        "EUR"
     prediction_type "Absolute"
 
-    change_in_price  1.5
-    value_at_time    3300.00
+    change_in_price     300
+    value_at_time       3000
+    value_at_expiration 3200
 
-    expired_at       DateTime.now + 1
+    expired_at       DateTime.now - 1
   end
 end
