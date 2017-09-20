@@ -10,9 +10,7 @@ class Prediction < ApplicationRecord
   validates :exchange, presence: true, inclusion: { in: Exchanges.list }
   validates :currency, presence: true, inclusion: { in: Currencies.list }
 
-  def check_current_value
-    ExchangePrice.where(currency: self.currency, coin: self.coin).last
-  end
+  validates :current_value, presence: true
 
   private
 
