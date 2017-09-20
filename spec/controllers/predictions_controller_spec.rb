@@ -4,6 +4,7 @@ RSpec.describe PredictionsController, type: :controller do
   before(:each) do
     User.destroy_all
     Prediction.destroy_all
+    ExchangePrice.destroy_all
 
     @user = FactoryGirl.create(:user_valid)
 
@@ -14,10 +15,10 @@ RSpec.describe PredictionsController, type: :controller do
     {
       coin: 'BTC',
       exchange: 'Coinbase',
-      currency: 'USD',
+      currency: 'EUR',
       prediction_type: 'Absolute',
       change_in_price: 300,
-      expiring_at: Time.now + 40
+      expiring_at: Time.now + 40,
     }
   }
 
@@ -71,6 +72,8 @@ RSpec.describe PredictionsController, type: :controller do
   describe "POST #create" do
     context "with valid params" do
       it "creates a new Prediction" do
+        FactoryGirl.create(:valid_exchange_price)
+
         expect {
           post :create, params: { prediction: valid_attributes }
         }.to change(Prediction, :count).by(1)
@@ -85,13 +88,18 @@ RSpec.describe PredictionsController, type: :controller do
 
     context "with invalid params" do
       it "returns a success response" do
+        FactoryGirl.create(:valid_exchange_price, currency)
+
         post :create, params: { prediction: invalid_attributes}
         expect(response).to be_success
       end
 
       it "returns a json describing the error" do
         post :create, params: { prediction: invalid_attributes}
-        expect(JSON.parse(response.body)['error']).to eq 'Validation failed: Coin is not included in the list, Exchange is not included in the list, Currency is not included in the list'
+
+        puts JSON.parse(response.body)['error']
+
+        expect(JSON.parse(response.body)['error']).to eq 'Validation failed: Coin is not included in the list, Exchange is not included in the list, Currency is not included in the list, Current value can\'t be blank'
       end
     end
   end
