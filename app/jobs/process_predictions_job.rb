@@ -1,6 +1,9 @@
 class ProcessPredictionsJob < ApplicationJob
   queue_as :predictions
 
+  # include Sidekiq::Worker
+  # sidekiq_options queue: 'predictions'
+
   def perform(*args)
     Prediction.all.each do |prediction|
       next if prediction.expiring_at > DateTime.now

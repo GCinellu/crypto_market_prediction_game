@@ -1,5 +1,9 @@
 class BtcCoinbasePrices < ApplicationJob
+  # include Sidekiq::Worker
+  # sidekiq_options queue: 'coinbase'
+
   queue_as :coinbase
+
 
   def perform
     @coinbase ||= Coinbase.new
