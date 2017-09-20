@@ -3,6 +3,6 @@ module PredictionsHelper
     ExchangePrice.where(currency: prediction.currency, coin: prediction.coin).last.spot
   rescue
     error = { error: "This is not a valid transaction"}
-    return error
+    return errorx
   end
 end

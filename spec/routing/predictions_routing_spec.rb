@@ -15,7 +15,7 @@ RSpec.describe PredictionsController, type: :routing do
       expect(:post => "/predictions").to route_to("predictions#create")
     end
 
-    xit "routes to #destroy" do
+    it "routes to #destroy" do
       expect(:delete => "/predictions/1").to route_to("predictions#destroy", :id => "1")
     end
   end
