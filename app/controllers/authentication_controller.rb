@@ -13,7 +13,7 @@ class AuthenticationController < ApplicationController
   end
 
   def signup
-    user = User.create!(person_params)
+    user = User.create!(user_params)
 
     response = success_response(user)
 
@@ -24,7 +24,7 @@ class AuthenticationController < ApplicationController
 
   private
 
-  def person_params
+  def user_params
     params.require(:user).permit(:email, :password, :username)
   end
 

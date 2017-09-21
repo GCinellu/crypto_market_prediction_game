@@ -9,6 +9,9 @@ class User < ApplicationRecord
 
   validates_email_format_of :email, :message => 'Not a valid email'
 
+  has_many :predictions
+  has_many :predicteds
+
   def password
     @password ||= Password.new(password_digest)
   rescue
@@ -30,14 +33,24 @@ class User < ApplicationRecord
     decoded_token = JsonWebToken.decode(token)
 
     return false unless decoded_token
-    return false unless token_expired?(decoded_token['exp'])
+    return false unless expired?(decoded_token['exp'])
+    return false unless valid_id?(decoded_token['id'])
+    return false unless valid_created_at?(DateTime.parse(decoded_token['creation_date']))
 
     true
   end
 
   private
 
-  def token_expired? datestamp
+  def expired? datestamp
     Time.at(datestamp) > Time.now
+  end
+
+  def valid_created_at? supposed_created_at
+    created_at.to_i == supposed_created_at.to_i
+  end
+
+  def valid_id? supposed_id
+    id == supposed_id
   end
 end

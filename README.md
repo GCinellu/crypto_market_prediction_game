@@ -4,7 +4,7 @@ As a newbie in the crypto market investments I felt the urge of creating a simpl
 
 This is my idea for this project:
 
-* Being able to authenticate and create an account on the platform. I will use Devise until I might split it in client/api
+* Being able to authenticate and create an account on the platform. ~~I will use Devise until I might split it in client/api~~ I ditched Device and created a custom JsonWebToken module to handle JWT encoding/decoding.
 
 * For each coin, the user should be able to create predictions based on: 
     * How much a coin will go up
@@ -31,7 +31,9 @@ For the moment I only wrote a parser for the Coinbase's API, but it's now easy t
 
 Since I want this to be a game, I see creating the user part as the next natural step.
 
-I know, I should focus straight away on the game's logic, but Devise makes it so easy...
+~~I know, I should focus straight away on the game's logic, but Devise makes it so easy...~~
+Creating the authentication system was a good call, there's good test coverage and I already configured a callback to use in the controllers, which will speed up being online in the first 0.X release
+
 
 Next up I'll be focusing straight on the game's logic.
 
@@ -66,6 +68,13 @@ And run the application with:
 `puma`
 
 ## Changelog
+#### 0.1.0
+Predictions are there as json responses. As a user you will be able to make a prediction (for the moment only a small subset of coins, currencies, and exchanges is available) with an expiration day no longer than 7 days. In other words, your prediction should be in the short range.
+Every minute, a job is scheduled to check which predictions are expired. The record is deleted, and with its informations a `Predicted` record is created, adding the price at expiration and some few more properties.
+In this way the scheduler doesn't have to run huge queries in order to check which predictions are still to be evaluated.
+
+Next is going to be the React Client to actually play the game and see your results.
+ 
 #### 0.0.2
 Well, in the end I decided that I might not feeling like porting the whole thingy to an api in the future, so I decided to ditch Devise and organise a small authentication set myself.
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170915224302) do
+ActiveRecord::Schema.define(version: 20170916182607) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,35 @@ ActiveRecord::Schema.define(version: 20170915224302) do
     t.string "currency"
   end
 
+  create_table "predicteds", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "coin"
+    t.string "exchange"
+    t.string "currency"
+    t.string "prediction_type"
+    t.float "change_in_price"
+    t.float "value_at_expiration"
+    t.float "value_at_time"
+    t.datetime "expired_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_predicteds_on_user_id"
+  end
+
+  create_table "predictions", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "coin"
+    t.string "exchange"
+    t.string "currency"
+    t.string "prediction_type"
+    t.float "change_in_price"
+    t.float "current_value"
+    t.datetime "expiring_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_predictions_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "username"
@@ -34,4 +63,6 @@ ActiveRecord::Schema.define(version: 20170915224302) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "predicteds", "users"
+  add_foreign_key "predictions", "users"
 end
