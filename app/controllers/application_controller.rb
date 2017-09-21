@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::API
+  include ActionController::Serialization
+
   protected
 
   def authenticate_user!

@@ -2,12 +2,10 @@ class PredictedsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    response = { predicteds: @current_user.predicteds }
-    render json: response
+    render json: @current_user.predicteds, each_serializer: PredictedsSerializer, root: true
   end
 
   def show
-    response = { predicted: @current_user.predicteds.find(params[:id]) }
-    render json: response, status: 200
+    render json: @current_user.predicteds.find(params[:id]), serializer: PredictedsSerializer, root: true
   end
 end
