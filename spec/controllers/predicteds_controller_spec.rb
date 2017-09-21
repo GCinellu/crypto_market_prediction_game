@@ -29,7 +29,9 @@ RSpec.describe PredictedsController, type: :controller do
 
   describe "GET #show" do
     it "returns http success" do
-      get :show
+      predicted = FactoryGirl.create(:predicted, user: @user)
+
+      get :show, params: { id: predicted.id }
       expect(response).to have_http_status(:success)
     end
   end
