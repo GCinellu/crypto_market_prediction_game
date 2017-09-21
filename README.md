@@ -68,6 +68,13 @@ And run the application with:
 `puma`
 
 ## Changelog
+#### 0.1.0
+Predictions are there as json responses. As a user you will be able to make a prediction (for the moment only a small subset of coins, currencies, and exchanges is available) with an expiration day no longer than 7 days. In other words, your prediction should be in the short range.
+Every minute, a job is scheduled to check which predictions are expired. The record is deleted, and with its informations a `Predicted` record is created, adding the price at expiration and some few more properties.
+In this way the scheduler doesn't have to run huge queries in order to check which predictions are still to be evaluated.
+
+Next is going to be the React Client to actually play the game and see your results.
+ 
 #### 0.0.2
 Well, in the end I decided that I might not feeling like porting the whole thingy to an api in the future, so I decided to ditch Devise and organise a small authentication set myself.
 
