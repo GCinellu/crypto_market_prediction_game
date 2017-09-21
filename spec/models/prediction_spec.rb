@@ -99,13 +99,5 @@ RSpec.describe Prediction, type: :model do
         expect(@prediction.valid?).to eq false
       end
     end
-
-    context 'check_current_value' do
-      it 'should return a valid token for the user, with user_id and user creation_date' do
-        current_value = FactoryGirl.create(:valid_exchange_price)
-
-        expect(@prediction.check_current_value).to eq current_value
-      end
-    end
   end
 end

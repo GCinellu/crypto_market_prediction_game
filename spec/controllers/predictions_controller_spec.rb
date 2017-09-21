@@ -88,7 +88,7 @@ RSpec.describe PredictionsController, type: :controller do
 
     context "with invalid params" do
       it "returns a success response" do
-        FactoryGirl.create(:valid_exchange_price, currency)
+        FactoryGirl.create(:valid_exchange_price)
 
         post :create, params: { prediction: invalid_attributes}
         expect(response).to be_success
@@ -97,9 +97,7 @@ RSpec.describe PredictionsController, type: :controller do
       it "returns a json describing the error" do
         post :create, params: { prediction: invalid_attributes}
 
-        puts JSON.parse(response.body)['error']
-
-        expect(JSON.parse(response.body)['error']).to eq 'Validation failed: Coin is not included in the list, Exchange is not included in the list, Currency is not included in the list, Current value can\'t be blank'
+        expect(JSON.parse(response.body)['error']).to eq 'Validation failed: Coin is not included in the list, Exchange is not included in the list, Currency is not included in the list'
       end
     end
   end

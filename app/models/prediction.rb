@@ -10,6 +10,8 @@ class Prediction < ApplicationRecord
   validates :exchange, presence: true, inclusion: { in: Exchanges.list }
   validates :currency, presence: true, inclusion: { in: Currencies.list }
 
+  validates :prediction_type, presence: true, inclusion: { in: ['Absolute', 'Relative'] }
+
   validates :current_value, presence: true
 
   private
