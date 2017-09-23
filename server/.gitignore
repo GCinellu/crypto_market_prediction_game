@@ -7,12 +7,10 @@
 # Ignore bundler config.
 /.bundle
 
-
 # Ignore all logfiles and tempfiles.
-server/log/*
-server/tmp/*
-!server/log/.keep
-!server/tmp/.keep
+/tmp/*
+!/log/.keep
+!/tmp/.keep
 
 .byebug_history
 /.idea/
