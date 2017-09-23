@@ -16,6 +16,8 @@ export default (state = initialState, action) => {
       });
 
     case 'RECEIVE_LOGIN':
+      sessionStorage.setItem('userObject', JSON.stringify(action.user));
+
       return Object.assign({}, {
         isDefaultState: false,
         isFetching: false,
@@ -25,6 +27,8 @@ export default (state = initialState, action) => {
       });
 
     case 'REJECT_LOGIN':
+      window.sessionStorage.removeItem('userObject');
+
       return Object.assign({}, state, {
         isDefaultState: true,
         isFetching: false,
@@ -41,6 +45,8 @@ export default (state = initialState, action) => {
       });
 
     case 'RECEIVE_SIGNUP':
+      sessionStorage.setItem('userObject', JSON.stringify(action.user));
+
       return Object.assign({}, {
         isDefaultState: false,
         isFetching: false,
@@ -50,12 +56,23 @@ export default (state = initialState, action) => {
       });
 
     case 'REJECT_SIGNUP':
+      window.sessionStorage.removeItem('userObject');
+
       return Object.assign({}, state, {
         isDefaultState: true,
         isFetching: false,
         isRejected: true,
 
         error: action.error
+      });
+
+    case 'USER_FROM_SESSION':
+      return Object.assign({}, {
+        isDefaultState: false,
+        isFetching: false,
+        isRejected: false,
+
+        user: action.user
       });
 
     default:
