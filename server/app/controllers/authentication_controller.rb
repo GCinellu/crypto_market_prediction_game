@@ -6,10 +6,10 @@ class AuthenticationController < ApplicationController
 
     response = success_response(user)
 
-    render json: response, status: 201
+    render json: response, status: 202
   rescue Exception => error
     # render json: { error: error }, status: 200
-    render json: { error: 'Wrong credentials' }, status: 200
+    render json: { error: 'Wrong credentials' }, status: 404
   end
 
   def signup
@@ -17,7 +17,7 @@ class AuthenticationController < ApplicationController
 
     response = success_response(user)
 
-    render json: response
+    render json: response, status: 201
   rescue Exception => error
     render json: { error: error }, status: 404
   end
