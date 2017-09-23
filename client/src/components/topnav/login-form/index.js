@@ -33,7 +33,7 @@ class LoginForm extends React.Component {
       .then((action) => {
         if (action.error) return false;
 
-        this.props.dispatch(push('/login'));
+        this.props.dispatch(push('/dashboard'));
       });
   }
 
@@ -64,12 +64,4 @@ class LoginForm extends React.Component {
   }
 };
 
-const mapStateToProps = state => {
-  const { user } = state;
-
-  return { user };
-};
-
-export default connect(
-    mapStateToProps
-)(LoginForm);
+export default connect()(LoginForm);
