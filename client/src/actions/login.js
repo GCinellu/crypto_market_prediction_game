@@ -24,18 +24,25 @@ export const fetchLogin = (credentials) => {
   return dispatch => {
     dispatch(requestLogin());
 
-    const url = `http://localhost:3000/api/v1/login`;
+    const headers = new Headers();
+    headers.append('Accept', 'application/json');
+    headers.append('Content-Type', 'application/json');
 
-    console.log(`[INFO] Call to ${url} from fetchLogin action`);
+    const options = {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify(credentials),
+    };
 
-    return fetch(url, { method: 'POST', body: credentials })
+    return fetch(`http://localhost:3000/api/v1/login`, options)
         .then( (res) => {
-          console.log('res', res);
           return res.json();
-        } )
+        })
         .then(
-            response => dispatch(receiveLogin(response)),
-            error => dispatch(rejectLogin(error))
-        );
+            (response) => {
+              if (response.token) return dispatch(receiveLogin(response));
+              return dispatch(rejectLogin(response))
+            }
+        )
   };
 }

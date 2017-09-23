@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux'
 
 import { fetchSignup } from "../../actions/signup";
 
@@ -7,7 +8,7 @@ class SubscribeForm extends React.Component {
   constructor(props) {
     super(props);
 
-    this.defaultState = {
+    this.state = {
       email: '',
       username: '',
       password: ''
@@ -16,8 +17,6 @@ class SubscribeForm extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
-
-  state = this.defaultState;
 
   onChange(event, name) {
     event.preventDefault();
@@ -32,7 +31,13 @@ class SubscribeForm extends React.Component {
 
     console.log('state', this.state);
 
-    this.props.dispatch(fetchSignup({user: this.state}));
+    this.props
+      .dispatch(fetchSignup({user: this.state}))
+      .then((action) => {
+        if (action.error) return false;
+
+        this.props.dispatch(push('/pippo'));
+      });
   }
 
   render() {

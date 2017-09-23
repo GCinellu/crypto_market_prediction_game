@@ -1,4 +1,6 @@
 import React from 'react';
+import Dropdown from './dropdown';
+import LoginForm from './login-form';
 
 export default ({ title }) => (
     <nav className="navbar navbar-expand-md navbar-light bg-light">
@@ -8,28 +10,6 @@ export default ({ title }) => (
         <span className="navbar-toggler-icon" />
       </button>
 
-      <div className="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
-        <ul className="navbar-nav">
-          <li className="nav-item dropdown">
-            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Settings
-            </a>
-
-            <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a className="dropdown-item" href="#">
-                Action
-              </a>
-
-              <a className="dropdown-item" href="#">
-                Another action
-              </a>
-
-              <a className="dropdown-item" href="#">
-                Something else here
-              </a>
-            </div>
-          </li>
-        </ul>
-      </div>
+      <LoginForm />
     </nav>
 );

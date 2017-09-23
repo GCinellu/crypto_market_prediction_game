@@ -1,25 +1,27 @@
 import fetch from 'isomorphic-fetch';
 
 export default (req, res) => {
-  console.log('req.body', req.body);
+  const headers = new Headers();
+  headers.append('Accept', 'application/json');
+  headers.append('Content-Type', 'application/json');
 
-  // fetch(url, { method: 'POST', body: credentials })
-  //   .then( res => res.json() )
-  //   .then(
-  //       response => dispatch(receiveLogin(response)),
-  //       error => dispatch(rejectLogin(error))
-  //   );
+  const options = {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify(req.body),
+  };
 
-  // request(url,
-  //     (error, response, body) => {
-  //       if (!error && response.statusCode === 200) {
-  //         console.log(`Resolved request to ${url}`);
-  //
-  //         res.send(body);
-  //       } else if (error) {
-  //         console.log(`error in request to ${url}`, error);
-  //
-  //         res.send(`Error in the request: ${error}`);
-  //       }
-  //     });
+  fetch('http://localhost:9000/authentication/login', options)
+      .then( res => res.json() )
+      .then(
+          (response) => {
+            if (response.error) {
+              return res.status(400).send(response); // Bad Request
+            }
+            res.status(202).send(response) // Created
+          },
+          (error) => {
+            res.status(520).send(error) // Unknown Error
+          }
+      );
 };
