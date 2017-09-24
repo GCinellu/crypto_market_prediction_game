@@ -11,9 +11,6 @@ class ProcessPredictionsJob < ApplicationJob
       user = User.find(prediction.user.id)
       actual_price = ExchangePrice.where(coin: prediction.coin, currency: prediction.currency).last.spot
 
-      puts "#####################"
-      puts actual_price.inspect
-
       predicted = user.predicteds.new({
         coin: prediction.coin,
         exchange: prediction.exchange,

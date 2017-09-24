@@ -15,7 +15,7 @@ class PredictionsController < ApplicationController
   def create
     prediction = @current_user.predictions.new prediction_params
 
-    current_value = check_current_value(prediction.currency, coin: prediction.coin)
+    current_value = check_current_value(prediction.currency, prediction.coin)
 
     prediction.current_value = current_value
     prediction.save!
