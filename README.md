@@ -68,6 +68,21 @@ And run the application with:
 `puma`
 
 ## Changelog
+#### 0.2.1
+##### Backend
+- Each method for each controller now test that for the number of attributes in the serialized response and ensure each field is what expected
+
+#### 0.2.0
+##### Client
+- User's session informations are stored into sessionStorage. Upon rendering, the app checks for their existence and eventually initialise them in store
+- Topnav: if the user's credentials are not there, a login form is shown
+- Homepage: a banner invites the user to sign up if not authenticated, else a link to the dashboard is offered.
+- Dashboard: The user can predict if the price of btc is going up or down in a given timeframe, and how much.
+- Predictions and Predicteds: they are now visible from the dashboard page
+
+##### Backend
+- Controllers: JSONs are now serialised
+
 #### 0.1.0
 Predictions are there as json responses. As a user you will be able to make a prediction (for the moment only a small subset of coins, currencies, and exchanges is available) with an expiration day no longer than 7 days. In other words, your prediction should be in the short range.
 Every minute, a job is scheduled to check which predictions are expired. The record is deleted, and with its informations a `Predicted` record is created, adding the price at expiration and some few more properties.
