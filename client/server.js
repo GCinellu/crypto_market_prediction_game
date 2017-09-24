@@ -9,6 +9,8 @@ app.use(bodyParser.json())
 
 import ProxyLogin from './Proxy/Login';
 import ProxySignup from './Proxy/Signup';
+import ProxyPredictions from './Proxy/Predictions';
+import ProxyPredicteds from './Proxy/Predicteds';
 
 if(process.env.NODE_ENV === 'development') {
 	const config = require('./webpack.config.dev');
@@ -34,6 +36,9 @@ if(process.env.NODE_ENV === 'development') {
 
 app.post('/api/v1/signup', ProxySignup);
 app.post('/api/v1/login', ProxyLogin);
+
+app.get('/api/v1/predictions', ProxyPredictions);
+app.get('/api/v1/predicteds', ProxyPredicteds);
 
 app.get('*', middleware);
 

@@ -1,22 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import {fetchPredictions} from "../../actions/predictions";
+import {fetchPredicteds} from "../../actions/predicteds";
 
-class Predictions extends React.Component {
+class Predicteds extends React.Component {
   constructor(props) {
     super(props);
   }
 
   componentWillMount() {
-    this.props.dispatch(fetchPredictions(this.props.user.user))
+    this.props.dispatch(fetchPredicteds(this.props.user.user))
   }
 
 
   render() {
-    const predictions = this.props.predictions.predictions;
+    const predicteds = this.props.predicteds.predicteds;
 
-    if (!predictions.length) return false;
+    if (!predicteds.length) return false;
 
     return(
       <table className="table">
@@ -29,13 +29,14 @@ class Predictions extends React.Component {
           <th>Prediction Type</th>
           <th>Change Predicted</th>
           <th>Value at time</th>
+          <th>Value at expiration</th>
           <th>Expiration Time</th>
           <th>Current Difference</th>
         </tr>
         
         </thead>
-        <tbody>
-        {predictions.map((prediction, index) => {
+        <tbody key>
+        {predicteds.map((prediction, index) => {
           return(
             <tr key={index}>
               <th scope="row">{index + 1}</th>
@@ -44,9 +45,10 @@ class Predictions extends React.Component {
               <td>{prediction.currency}</td>
               <td>{prediction.prediction_type}</td>
               <td>{prediction.change_in_price}</td>
-              <td>{prediction.current_value}</td>
-              <td>{prediction.expiring_at}</td>
-              <td>{prediction.current_value}</td>
+              <td>{prediction.value_at_time}</td>
+              <td>{prediction.value_at_expiration}</td>
+              <td>{prediction.expired_at}</td>
+              <td>{prediction.change}</td>
             </tr>
           )
         })}
@@ -57,6 +59,6 @@ class Predictions extends React.Component {
 }
 
 export default connect((state) => {
-  const { user, predictions } = state;
-  return { user, predictions };
-})(Predictions);
+  const { user, predicteds } = state;
+  return { user, predicteds };
+})(Predicteds);
