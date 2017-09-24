@@ -48,8 +48,29 @@ RSpec.describe PredictionsController, type: :controller do
     it "returns the list of user's predictions" do
       get :index, params: {}
 
-      response_length = JSON.parse(response.body)['predictions'].length
+      response_length = JSON.parse(response.body).length
       expect(response_length).to eq @user.predictions.count
+    end
+
+    it "should have every element in the list serialized" do
+      FactoryGirl.create(:prediction, user: @user)
+      FactoryGirl.create(:prediction, user: @user)
+      FactoryGirl.create(:prediction, user: @user)
+
+      get :index, params: {}
+
+      parsed_response = JSON.parse(response.body)
+      random_element = parsed_response.sample
+
+      expect(random_element.keys.count).to eq 7
+
+      expect(random_element['coin'].blank?).to eq false
+      expect(random_element['exchange'].blank?).to eq false
+      expect(random_element['currency'].blank?).to eq false
+      expect(random_element['prediction_type'].blank?).to eq false
+      expect(random_element['change_in_price'].blank?).to eq false
+      expect(random_element['current_value'].blank?).to eq false
+      expect(random_element['expiring_at'].blank?).to eq false
     end
   end
 
@@ -65,7 +86,29 @@ RSpec.describe PredictionsController, type: :controller do
       prediction = FactoryGirl.create(:prediction, user: @user)
 
       get :show, params: { id: prediction.id }
-      expect(JSON.parse(response.body)['prediction']['id']).to eq prediction.id
+
+      parsed_response = JSON.parse(response.body)
+
+      expect(parsed_response['coin']).to eq prediction.coin
+      expect(parsed_response['exchange']).to eq prediction.exchange
+      expect(parsed_response['currency']).to eq prediction.currency
+    end
+
+    it "should return only the wanted values" do
+      prediction = FactoryGirl.create(:prediction, user: @user)
+
+      get :show, params: { id: prediction.id }
+
+      parsed_response = JSON.parse(response.body)
+      expect(parsed_response.keys.count).to eq 7
+
+      expect(parsed_response['coin'].blank?).to eq false
+      expect(parsed_response['exchange'].blank?).to eq false
+      expect(parsed_response['currency'].blank?).to eq false
+      expect(parsed_response['prediction_type'].blank?).to eq false
+      expect(parsed_response['change_in_price'].blank?).to eq false
+      expect(parsed_response['current_value'].blank?).to eq false
+      expect(parsed_response['expiring_at'].blank?).to eq false
     end
   end
 
@@ -80,9 +123,23 @@ RSpec.describe PredictionsController, type: :controller do
       end
 
       it "returns a json with the Prediction's data" do
+        FactoryGirl.create(:valid_exchange_price)
+
         post :create, params: { prediction: valid_attributes }
 
-        expect(response.body['coin']).to eq valid_attributes['coin']
+        parsed_response = JSON.parse(response.body)
+        expect(parsed_response.keys.count).to eq 2
+
+        prediction = parsed_response['prediction']
+        expect(prediction.keys.count).to eq 7
+
+        expect(prediction['coin'].blank?).to eq false
+        expect(prediction['exchange'].blank?).to eq false
+        expect(prediction['currency'].blank?).to eq false
+        expect(prediction['prediction_type'].blank?).to eq false
+        expect(prediction['change_in_price'].blank?).to eq false
+        expect(prediction['current_value'].blank?).to eq false
+        expect(prediction['expiring_at'].blank?).to eq false
       end
     end
 
@@ -115,7 +172,18 @@ RSpec.describe PredictionsController, type: :controller do
       prediction = FactoryGirl.create(:prediction, user: @user)
 
       delete :destroy, params: {id: prediction.id }
-      expect(JSON.parse(response.body)['deleted_prediction']['id']).to eq prediction.id
+
+      parsed_response = JSON.parse(response.body)
+
+      expect(parsed_response.keys.count).to eq 7
+
+      expect(parsed_response['coin'].blank?).to eq false
+      expect(parsed_response['exchange'].blank?).to eq false
+      expect(parsed_response['currency'].blank?).to eq false
+      expect(parsed_response['prediction_type'].blank?).to eq false
+      expect(parsed_response['change_in_price'].blank?).to eq false
+      expect(parsed_response['current_value'].blank?).to eq false
+      expect(parsed_response['expiring_at'].blank?).to eq false
     end
   end
 end
