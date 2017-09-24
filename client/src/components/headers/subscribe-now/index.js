@@ -33,7 +33,6 @@ const SubscribeNow = ({ dispatch, title, user }) => (
         <div className="col-sm-12 col-md-6">
           <h1>Keep track of your gut feelings</h1>
           <h2>be a better trader</h2>
-          <h2>token</h2>
         </div>
 
         <div className="col-sm 12 col-md-4">

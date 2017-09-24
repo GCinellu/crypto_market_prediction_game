@@ -7,6 +7,7 @@ import TopNav from '../topnav';
 
 import Chart from '../charts/chart';
 import Predictions from './../predictions';
+import Predicteds from './../predicteds';
 
 if(process.env.WEBPACK) require('./index.scss');
 
@@ -26,32 +27,72 @@ const data = [
 
 
 const Dashboard = ({ user }) => (
-    <div className='page'>
+  <div className='page'>
       <TopNav title='Page' />
       <br/>
 
 
       <div className="container">
-        <h1 className="text-center">
-          Welcome to your dashboard {user.username}
-        </h1>
-
-        <hr />
-
         <div className="row">
           <div className="col-sm-8">
-            <Chart data={data}
-            />
+            {/*<Chart data={data}*/}
+            {/*/>*/}
           </div>
 
           <div className="col-sm-4">
             <div className="card">
               <div className="card-block">
-                <h4 className="card-title">Card title</h4>
-                <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" className="card-link">Card link</a>
-                <a href="#" className="card-link">Another link</a>
+                <h4 className="card-title">So you read the future?</h4>
+                <hr/>
+                <h6 className="card-subtitle mb-2 text-muted text-center">Is it going up or down?</h6>
+
+                <div className="row">
+                  <div className="col-sm-6">
+                    <button className="btn btn-danger btn-lg btn-block">
+                      Down
+                    </button>
+                  </div>
+                  <div className="col-sm-6">
+                    <button className="btn btn-success btn-lg btn-block">
+                      Up
+                    </button>
+                  </div>
+                </div>
+                <br/>
+
+                <h6 className="card-subtitle mb-2 text-muted text-center">How much?</h6>
+                <div className="row">
+                  <div className="col-sm-12">
+                    <div className="input-group">
+                      <input type="text" className="form-control" aria-label="Text input with dropdown button" />
+                      <div className="input-group-btn">
+                        <button type="button" className="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Absolute
+                        </button>
+
+                        <div className="dropdown-menu dropdown-menu-right">
+                          <a className="dropdown-item" href="#">Relative</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br/>
+
+                <h6 className="card-subtitle mb-2 text-muted text-center">In how long?</h6>
+                <div className="row">
+                  <div className="col-sm-6">
+                    <div className="input-group">
+                      <input type="date" className="form-control" aria-label="Text input with dropdown button" />
+                    </div>
+                  </div>
+
+                  <div className="col-sm-6">
+                    <div className="input-group">
+                      <input type="time" className="form-control" aria-label="Text input with dropdown button" />
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -63,6 +104,11 @@ const Dashboard = ({ user }) => (
             <hr/>
 
             <Predictions />
+
+            <br/>
+            <h4>Predicteds</h4>
+            <hr/>
+            <Predicteds />
           </div>
 
         </div>
