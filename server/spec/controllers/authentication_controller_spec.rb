@@ -14,8 +14,21 @@ RSpec.describe AuthenticationController, type: :controller do
       body = JSON.parse(response.body)
 
       expect(response).to have_http_status(:success)
+
       expect(body['email']).to eq @user.email
       expect(body['username']).to eq @user.username
+    end
+
+    it "should return only a subset of parameters" do
+      post :login, params: { email: @user.email, password: 'popsicles'}
+
+      body = JSON.parse(response.body)
+
+      expect(body.keys.count).to eq 3
+
+      expect(body['email'].blank?).to eq false
+      expect(body['username'].blank?).to eq false
+      expect(body['token'].blank?).to eq false
     end
 
     it "returns a generic error message with wrong credentials" do
@@ -23,7 +36,7 @@ RSpec.describe AuthenticationController, type: :controller do
 
       body = JSON.parse(response.body)
 
-      expect(response).to have_http_status(:success)
+      expect(response).to have_http_status(404)
       expect(body['error']).to eq 'Wrong credentials'
     end
   end
@@ -43,6 +56,18 @@ RSpec.describe AuthenticationController, type: :controller do
       expect(response).to have_http_status(:success)
       expect(body['email']).to eq @user.email
       expect(body['username']).to eq @user.username
+    end
+
+    it "should return only a subset of parameters" do
+      post :signup, params: { user: { email: @user.email, username: @user.username, password: 'popsicles'}}
+
+      body = JSON.parse(response.body)
+
+      expect(body.keys.count).to eq 3
+
+      expect(body['email'].blank?).to eq false
+      expect(body['username'].blank?).to eq false
+      expect(body['token'].blank?).to eq false
     end
 
     it "returns an error when parameters are missing" do
