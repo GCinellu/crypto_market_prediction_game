@@ -17,3 +17,4 @@ describe('toggleTodo(id)', () => {
     expect(store.getActions()).toEqual(expectedActions);
   });
 });
+

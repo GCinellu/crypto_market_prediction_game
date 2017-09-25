@@ -16,4 +16,6 @@ server/tmp/*
 
 .byebug_history
 /.idea/
-/log/development.log
+
+/server/log/development.log
+/server/log/*
