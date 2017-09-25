@@ -28,7 +28,7 @@ const data = [
 
 const Dashboard = ({ user }) => (
   <div className='page'>
-      <TopNav title='Page' />
+      <TopNav   title='Page' />
       <br/>
 
 
