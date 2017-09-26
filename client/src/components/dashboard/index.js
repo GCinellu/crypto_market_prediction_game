@@ -37,12 +37,12 @@ const Dashboard = ({ user }) => (
 
       <div className="container">
         <div className="row">
-          <div className="col-sm-8">
+          <div className="col-sm-6 col-md-6 col-lg-8">
             {/*<Chart data={data}*/}
             {/*/>*/}
           </div>
 
-          <div className="col-sm-4">
+          <div className="col-sm-6 col-md-6 col-lg-4">
             <BetPad />
           </div>
         </div>
